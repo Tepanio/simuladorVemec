@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class VeMec {
-    private int id;
+    private String id;
     private Collection<VeMecState> estados = new ArrayList<>();
 
-    public VeMec(int id) {
+    public VeMec(String id) {
         this.id = id;
     }
     public String getJsonRand(){
@@ -17,14 +17,15 @@ public class VeMec {
         this.estados.add((new VeMecState().getRandom()));
         Gson obj = new Gson();
         json = obj.toJson(this.estados);
+        this.estados.clear();
         return json;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

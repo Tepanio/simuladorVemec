@@ -123,7 +123,7 @@ public class VeMecState {
 
         Date date = new Date();
         Timestamp ts=new Timestamp(date.getTime());
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH.mm.ss.SSS");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
         timestamp = formatter.format(ts);
         return this;
     }
