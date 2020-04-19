@@ -29,14 +29,19 @@ public class PostThread extends Thread {
     {
         try
         {
-            for (int i=0 ;i<3;i++)
+            ///Determina la cantidad de post que se realizaran
+            int cantPost = 3;
+            ///Tiempo entre posteo y posteo de un mismo VeMec en milisegundos
+            int tiempoDemora = 1000;
+            for (int i=0; i < cantPost;i++)
             {
+                ///Se genera json  y se printea por consola para controlar
                 String json = this.vem.getJsonRand();
                 System.out.println( "Datos a postear del Vemec:"+ this.vem.getId()+" \n " + json + "\n");
 
 
 
-                
+                ///Se estable conexion http
                 CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 
                 try {
@@ -45,11 +50,11 @@ public class PostThread extends Thread {
                     request.addHeader("content-type", "application/json");
                     request.setEntity(params);
                     httpClient.execute(request);
-                        // handle response here...
-                    System.out.println("final del try");
-                                
+                    System.out.println("Estado ingresado");
+                    ///Los estados son eliminados ya que fueron postedos en otro caso se vuelven a enviar
+                    this.vem.getEstados().clear();
                 } catch (IOException ex) {
-                    System.out.println("dentro del catch");
+                    System.out.println("No se puedo cargar el estado");
 
                 } finally {
                     try {
@@ -60,7 +65,7 @@ public class PostThread extends Thread {
 
                 }
                 
-                Thread.sleep(1000);
+                Thread.sleep(tiempoDemora);
             }
         }
         catch(InterruptedException e )

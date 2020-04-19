@@ -17,7 +17,7 @@ public class VeMec {
         this.estados.add((new VeMecState().getRandom()));
         Gson obj = new Gson();
         json = obj.toJson(this.estados);
-        this.estados.clear();
+
         return json;
     }
 
@@ -27,5 +27,9 @@ public class VeMec {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Collection<VeMecState> getEstados() {
+        return estados;
     }
 }

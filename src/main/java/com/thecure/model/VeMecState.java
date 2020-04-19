@@ -107,7 +107,7 @@ public class VeMecState {
     public void setPresionSalida(int presionSalida) {
         this.presionSalida = presionSalida;
     }
-
+    ///Genera estados random para el VeMec
     public VeMecState getRandom(){
 
         this.humedad = new Random().nextInt(11) + 10;
