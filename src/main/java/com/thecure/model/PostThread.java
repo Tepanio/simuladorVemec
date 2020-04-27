@@ -21,16 +21,13 @@ public class PostThread extends Thread {
 
     ///Tiempo entre posteo y posteo de un mismo VeMec en milisegundos
     private int delay;
+    private int cantidadRequests;
 
-    public PostThread(VeMec veMec) {
-        this(veMec, 1000);
-    }
-
-    public PostThread(VeMec vemec, int delay)
-    {
-        super("Creado Thread para VeMec:" + vemec.getId());
-        this.vem = vemec;
+    public PostThread(VeMec veMec, int cantidadRequests, int delay) {
+        super("Creado Thread para VeMec:" + veMec.getId());
+        this.vem = veMec;
         this.delay = delay;
+        this.cantidadRequests = cantidadRequests;
 
         System.out.println(this.getName());
         start();
@@ -41,13 +38,11 @@ public class PostThread extends Thread {
         try
         {
             ///Determina la cantidad de post que se realizaran
-            int cantPost = 20;
-
             try(CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
                 HttpPost request = new HttpPost("http://localhost:8080/api/v1/vemecs/"+ this.vem.getId()+"/estados");
                 request.addHeader("content-type", "application/json");
 
-                for (int i=0; i < cantPost;i++)
+                for (int i=0; i < this.cantidadRequests; i++)
                 {
                     ///Se genera json  y se printea por consola para controlar
                     String json = this.vem.getNewRandomStateJSON();
