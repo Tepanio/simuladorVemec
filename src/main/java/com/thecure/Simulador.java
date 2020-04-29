@@ -8,7 +8,7 @@ public class Simulador {
     public static void main(String[] args) {
         String help = "Uso: simulador <cantidad de vemecs> <cantidad de requests por vemec> <tiempo entre requests en ms>";
 
-        if(args.length != 2) {
+        if(args.length != 3) {
             System.out.println(help);
             return;
         }
@@ -18,14 +18,14 @@ public class Simulador {
         try {
             cantidadVemecs = Integer.parseInt(args[0]);
             cantidadRequests = Integer.parseInt(args[1]);
-            delay = Integer.parseInt(args[1]);
+            delay = Integer.parseInt(args[2]);
         }
         catch (NumberFormatException e) {
             System.out.println(help);
             return;
         }
 
-        if(cantidadRequests < 1 || cantidadVemecs < 1) {
+        if(cantidadRequests < 1 || cantidadVemecs < 1 || delay < 1) {
             System.out.println("Las cantidades tienen que ser numeros enteros positivos.");
             return;
         }
