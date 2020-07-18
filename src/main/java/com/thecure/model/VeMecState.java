@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Random;
 
 public class VeMecState {
+    public static int contadorCriticos = 0;
 
     private String timestamp;
     private int presionMaxima;
@@ -24,89 +25,16 @@ public class VeMecState {
     private int presionEntrada;
     private int presionSalida;
 
+    private int bpm;
+    private boolean usandoBateria;
+    private int bateria;
+    private String latitud;
+    private String longitud;
+
     public VeMecState() {
 
     }
 
-    public int getPresionMaxima() {
-        return presionMaxima;
-    }
-
-    public void setPresionMaxima(int presionMaxima) {
-        this.presionMaxima = presionMaxima;
-    }
-
-    public int getPresionMinima() {
-        return presionMinima;
-    }
-
-    public void setPresionMinima(int presionMinima) {
-        this.presionMinima = presionMinima;
-    }
-
-    public int getVolumenGasAportado() {
-        return volumenGasAportado;
-    }
-
-    public void setVolumenGasAportado(int volumenGasAportado) {
-        this.volumenGasAportado = volumenGasAportado;
-    }
-
-    public int getFrecuenciaDeAporte() {
-        return frecuenciaDeAporte;
-    }
-
-    public void setFrecuenciaDeAporte(int frecuenciaDeAporte) {
-        this.frecuenciaDeAporte = frecuenciaDeAporte;
-    }
-
-    public int getPorcentajeOxigeno() {
-        return porcentajeOxigeno;
-    }
-
-    public void setPorcentajeOxigeno(int porcentajeOxigeno) {
-        this.porcentajeOxigeno = porcentajeOxigeno;
-    }
-
-    public int getHumedad() {
-        return humedad;
-    }
-
-    public void setHumedad(int humedad) {
-        this.humedad = humedad;
-    }
-
-    public int getTemperaturaEntrada() {
-        return temperaturaEntrada;
-    }
-
-    public void setTemperaturaEntrada(int temperaturaEntrada) {
-        this.temperaturaEntrada = temperaturaEntrada;
-    }
-
-    public int getTemperaturaSalida() {
-        return temperaturaSalida;
-    }
-
-    public void setTemperaturaSalida(int temperaturaSalida) {
-        this.temperaturaSalida = temperaturaSalida;
-    }
-
-    public int getPresionEntrada() {
-        return presionEntrada;
-    }
-
-    public void setPresionEntrada(int presionEntrada) {
-        this.presionEntrada = presionEntrada;
-    }
-
-    public int getPresionSalida() {
-        return presionSalida;
-    }
-
-    public void setPresionSalida(int presionSalida) {
-        this.presionSalida = presionSalida;
-    }
     ///Genera estados random para el VeMec
     public VeMecState getRandom() {
 
@@ -128,7 +56,7 @@ public class VeMecState {
         return this;
     }
 
-    public static VeMecState generateRandom() {
+    public static VeMecState generateRandom(boolean critico) {
         VeMecState state = new VeMecState();
 
         state.humedad = new Random().nextInt(11) + 10;
@@ -141,6 +69,19 @@ public class VeMecState {
         state.temperaturaSalida = state.temperaturaEntrada - 5;
         state.presionEntrada = state.presionMaxima - 16;
         state.presionSalida = state.presionMaxima -10;
+
+        if(critico) {
+            state.bpm = 100 +  new Random().nextInt(20);
+            contadorCriticos--;
+        }
+        else {
+            state.bpm = 60 +  new Random().nextInt(20);
+        }
+
+        state.usandoBateria = false;
+        state.bateria = 100;
+        state.latitud = "10";
+        state.longitud = "10";
 
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");

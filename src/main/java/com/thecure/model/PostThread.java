@@ -22,6 +22,7 @@ public class PostThread extends Thread {
     ///Tiempo entre posteo y posteo de un mismo VeMec en milisegundos
     private int delay;
     private int cantidadRequests;
+    private int cantCriticos;
 
     public PostThread(VeMec veMec, int cantidadRequests, int delay) {
         super("Creado Thread para VeMec:" + veMec.getId());
